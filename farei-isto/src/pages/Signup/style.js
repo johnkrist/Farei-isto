@@ -2,7 +2,8 @@ import styled, { keyframes } from "styled-components";
 import taskimg from "../../image/task.png";
 
 export const Container = styled.div`
-height: 100vh;
+height: 130vh;
+background-color: beige;
 `;
 export const Background = styled.div`
   margin-left: 21%;
@@ -10,7 +11,7 @@ export const Background = styled.div`
   background-image: url(${taskimg});
   background-repeat: no-repeat; ;
   
-`;
+  `;
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,15 +19,15 @@ export const Content = styled.div`
   justify-content: center;
   width: 100%;
   
-`;
+  `;
 const apperFromRigth = keyframes`
 from{
-    opacity: 0;
-    transform: translateX(50px);
+  opacity: 0;
+  transform: translateX(50px);
 }
 to{
-    opacity: 1;
-    transform: translateX(0px)
+  opacity: 1;
+  transform: translateX(0px)
 }
 
 
@@ -39,12 +40,13 @@ export const AnimationContainer = styled.div`
   justify-content: center;
   animation: ${apperFromRigth} 2s;
   
-
+  
   form {
     margin: 170px;
-
+    
     width: 450px;
-
+   
+    
     text-align: center;
 
     h2 {

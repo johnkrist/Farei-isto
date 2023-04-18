@@ -6,8 +6,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 background-color: beige;
-margin: 2rem 4rem 0 4rem;
-padding: 4rem;
+height:120vh;
 
 
 `

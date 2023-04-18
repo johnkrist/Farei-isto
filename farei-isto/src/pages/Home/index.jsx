@@ -8,10 +8,10 @@ export const Home = () => {
   return (
     <Container>
       <Content>
-        <h2>Just it</h2>
-        <span>Agende suas tarefas de forma simples</span>
-        <Button onClick={() => navigate("./signup")}>Cadastro</Button>
-        <Button onClick={() => navigate("./login")}>Login</Button>
+        <h2>just it</h2>
+        <span>agende suas tarefas de forma simples</span>
+        <Button onClick={() => navigate("./signup")}>cadastro</Button>
+        <Button onClick={() => navigate("./login")}>login</Button>
       </Content>
     </Container>
   );

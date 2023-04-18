@@ -3,12 +3,12 @@ import styled from "styled-components";
 export const Container = styled.div`
 text-align: left;
 font-size: 28px;
-
+padding: 5px;
 `
 export const InputContent = styled.div`
-background: white;
+background: beige;
 border-radius: 8px;
-border: 2px solid black ;
+border: 1px solid black ;
 padding: 2px;
 width: 100%;
 transition: 0.5s;
