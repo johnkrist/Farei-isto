@@ -1,9 +1,13 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
 text-align: left;
 font-size: 28px;
 padding: 5px;
+span{
+    color: red;
+    font-size: 20px;
+}
 `
 export const InputContent = styled.div`
 background: beige;
@@ -12,6 +16,10 @@ border: 1px solid black ;
 padding: 2px;
 width: 100%;
 transition: 0.5s;
+${props => props.isError && css`
+border-color: red;
+
+`}
 
 
 input{

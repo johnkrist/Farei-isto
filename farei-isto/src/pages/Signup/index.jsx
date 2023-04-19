@@ -6,8 +6,14 @@ import { Input } from "../../components/Input";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { api } from "../../services/api";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-export const Signup = () => {
+export const Signup= () => {
+
+  const navigate = useNavigate()
+
   const schema = yup.object().shape({
     name: yup.string().required("campo obrigatorio"),
     email: yup.string().email("email invalido").required("campo obrigatorio"),
@@ -28,8 +34,15 @@ export const Signup = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmitFunction = (data) => {
-    console.log(data)
+  const onSubmitFunction = ({ name, email, password }) => {
+    const user = { name, email, password };
+    api
+      .post("user/register", user)
+      .then(() => {
+        toast.success("sucesso ao criar a conta");
+        navigate("/login");
+      })
+      .cath((err) => toast.error("erro ao criar a conta"));
   };
   return (
     <Container>
@@ -43,12 +56,14 @@ export const Signup = () => {
                 name="name"
                 label="nome"
                 placeholder="seu nome"
+                error={errors.name?.message}
               />
               <Input
                 register={register}
                 name="email"
                 label="e-mail"
                 placeholder="seu e-mail"
+                error={errors.email?.message}
               />
               <Input
                 register={register}
@@ -56,6 +71,7 @@ export const Signup = () => {
                 label="senha"
                 placeholder="escolha uma senha"
                 type="password"
+                error={errors.password?.message}
               />
               <Input
                 register={register}
@@ -63,9 +79,10 @@ export const Signup = () => {
                 label="repita a senha"
                 placeholder="confirmação de senha"
                 type="password"
+                error={errors.passwordConfirm?.message}
               />
 
-              <Button type='submit'>enviar</Button>
+              <Button type="submit">enviar</Button>
               <p>
                 já possui conta? <Link to="/login">faça login</Link>.
               </p>

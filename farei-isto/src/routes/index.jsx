@@ -1,7 +1,8 @@
 import { Route, Routes as Switch} from "react-router-dom";
 import { Home } from "../pages/Home";
-import { Signup } from "../pages/Signup";
 import { Login } from "../pages/Login";
+import { Signup } from "../pages/Signup";
+
 
 export const Routes = () => {
   return (
