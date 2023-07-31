@@ -36,6 +36,7 @@ export const Signup= () => {
 
   const onSubmitFunction = ({ name, email, password }) => {
     const user = { name, email, password };
+    console.log(user)
     api
       .post("user/register", user)
       .then(() => {
