@@ -2,6 +2,7 @@ import { Button } from "../../components/Button";
 import { Container, Content } from "./style";
 import { useNavigate } from "react-router-dom";
 
+
 export const Home = () => {
   const navigate = useNavigate();
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { AnimationContainer, Background, Container, Content } from "./style";
 import { Button } from "../../components/Button";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -10,18 +10,16 @@ import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-export const Login = () => {
-
-  const navigate = useNavigate()
+export const Login = ({ authenticated, setAuthenticated }) => {
+  const navigate = useNavigate();
 
   const schema = yup.object().shape({
-    name: yup.string().required("campo obrigatorio"),
-   
+    email: yup.string().email().required("campo obrigatorio"),
+
     password: yup
       .string()
-      .min(8, "minimo 8 digitos")
+      .min(6, "minimo 6 digitos")
       .required("campo obrigatorio"),
-    
   });
   const {
     register,
@@ -31,15 +29,21 @@ export const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmitFunction = ({ name, password }) => {
-    const user = { name, password };
+  const onSubmitFunction = (data) => {
+    console.log(data);
+
     api
-      .post("user/register", user)
-      .then(() => {
-        toast.success("sucesso ao criar a conta");
-        navigate("/login");
+      .post("/login", data)
+      .then((res) => {
+        const { accessToken } = res.data;
+        toast.success("login realizado");
+        localStorage.setItem("token", accessToken);
+        setAuthenticated(true);
+        if (authenticated) {
+          navigate("/dashboard")
+        }
       })
-      .cath((err) => toast.error("erro ao criar a conta"));
+      .catch((err) => toast.error("Email ou senha invalidos"));
   };
   return (
     <Container>
@@ -50,13 +54,12 @@ export const Login = () => {
               <h2>login</h2>
               <Input
                 register={register}
-                name="name"
-                label="nome"
+                name="email"
+                label="email"
                 placeholder="seu nome"
-                error={errors.name?.message}
+                error={errors.email?.message}
               />
-      
-              
+
               <Input
                 register={register}
                 name="password"

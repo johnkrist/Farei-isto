@@ -10,16 +10,15 @@ import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-export const Signup= () => {
-
-  const navigate = useNavigate()
+export const Signup = ({ authenticated }) => {
+  const navigate = useNavigate();
 
   const schema = yup.object().shape({
     name: yup.string().required("campo obrigatorio"),
     email: yup.string().email("email invalido").required("campo obrigatorio"),
     password: yup
       .string()
-      .min(8, "minimo 8 digitos")
+      .min(6, "minimo 6 digitos")
       .required("campo obrigatorio"),
     passwordConfirm: yup
       .string()
@@ -34,17 +33,21 @@ export const Signup= () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmitFunction = ({ name, email, password }) => {
-    const user = { name, email, password };
-    console.log(user)
+  const onSubmitFunction = (data) => {
+   /*  const user = { name, email, password };
+    const data = JSON.parse(user); */
+    console.log(data);
     api
-      .post("user/register", user)
+      .post("register", data)
       .then(() => {
         toast.success("sucesso ao criar a conta");
         navigate("/login");
       })
-      .cath((err) => toast.error("erro ao criar a conta"));
+      .catch((err) => toast.error("erro ao criar a conta"));
   };
+  if (authenticated) {
+    return navigate("/Dashboard");
+  }
   return (
     <Container>
       <Background>
