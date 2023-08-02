@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AnimationContainer, Background, Container, Content } from "./style";
 import { Button } from "../../components/Button";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -30,21 +30,25 @@ export const Login = ({ authenticated, setAuthenticated }) => {
   });
 
   const onSubmitFunction = (data) => {
-    console.log(data);
-
     api
       .post("/login", data)
       .then((res) => {
-        const { accessToken } = res.data;
+        navigate("/dashboard");
         toast.success("login realizado");
+        const { accessToken } = res.data;
+        const { id } = res.data.user;
+        console.log(res.data)
         localStorage.setItem("token", accessToken);
+        localStorage.setItem("user", id);
         setAuthenticated(true);
-        if (authenticated) {
-          navigate("/dashboard")
-        }
       })
-      .catch((err) => toast.error("Email ou senha invalidos"));
+      .catch((error) => toast.error("Email ou senha invalidos"));
   };
+
+  if (authenticated) {
+    navigate("/dashboard")
+  }
+
   return (
     <Container>
       <Background>
