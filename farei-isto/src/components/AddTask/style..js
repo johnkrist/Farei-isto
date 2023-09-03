@@ -6,16 +6,17 @@ align-items: center;
 justify-content: center;
 
 
-width: 50px;
-height: 50px;
+width: 60px;
+height: 40px;
 border-radius: 15px;
+background-color: beige;
 
 color: brown;
 font-size: 40px;
 
 :hover{
     transition: 0.5s;
-    background-color: gray;
+    background-color: olive;
    
     
 }
