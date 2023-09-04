@@ -37,9 +37,11 @@ export const Login = ({ authenticated, setAuthenticated }) => {
         toast.success("login realizado");
         const { accessToken } = res.data;
         const { id } = res.data.user;
+        const {nome} = res.data.user
         console.log(res.data)
         localStorage.setItem("token", accessToken);
         localStorage.setItem("user", id);
+        localStorage.setItem("nome", nome)
         setAuthenticated(true);
       })
       .catch((error) => toast.error("Email ou senha invalidos"));

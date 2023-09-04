@@ -4,7 +4,8 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: brown;
+  flex-direction: column;
+
 `;
 export const InputContainer = styled.div`
   flex: 1;
@@ -19,5 +20,8 @@ export const InputContainer = styled.div`
 
   `;
    export const TaskContainer = styled.div`
+  display: flex;
+ 
+   gap: 12%;
    
    `
