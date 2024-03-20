@@ -1,11 +1,11 @@
 import { Container, InputContent } from "./style";
 
-export const Input = ({ label, icon, register, name, error="", ...rest }) => {
+export const Input = ({ label, icon, register, nome, error="", ...rest }) => {
   return (
     <Container>
       <div>{label}{!!error && <span>-{error}</span>}</div>
       <InputContent isError={!!error}>
-        <input {...register(name)} {...rest}/>
+        <input {...register(nome)} {...rest}/>
       </InputContent>
     </Container>
   );

@@ -8,7 +8,8 @@ import { api } from "../../services/api";
 import { useState } from "react";
 import { useEffect } from "react";
 export const Dashboard = ({ authenticated }) => {
-  const [tasks, setTasks] = useState([""]);
+  const [tasks, setTasks] = useState([]);
+
   const [token] = useState(localStorage.getItem("token") || "");
   const [Id] = useState(JSON.parse(localStorage.getItem("user")) || "");
   const { register, handleSubmit } = useForm();
@@ -28,6 +29,20 @@ export const Dashboard = ({ authenticated }) => {
       .catch((err) => console.error(err));
   }
 
+  const onSubmit = ({ name }) => {
+    const tarefa = [...tasks, { name, id: Math.floor(Math.random() * 4000) }];
+    setTasks(tarefa);
+  };
+  console.log(tasks);
+  
+  
+  const removeTask = (index) => {
+    const removetasks = [...tasks]
+    removetasks.splice(index, 1);
+    setTasks(removetasks)
+    
+  };
+
   useEffect(() => {
     loadTasks();
   }, []);
@@ -39,23 +54,24 @@ export const Dashboard = ({ authenticated }) => {
     <Container>
       <InputContainer>
         <time>4 de setembro de 2023</time>
-        <section>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             icon={FiEdit2}
             placeholder="nova tarefa"
             register={register}
-            name="task"
+            nome="name"
           />
           <AddTask type="Submit">+</AddTask>
-        </section>
+        </form>
       </InputContainer>
       <TaskContainer>
-        {tasks.map((task) => (
+        {tasks.map((task, index) => (
           <Card
             key={task.id}
-            title={task.nome}
+            title={task.name}
             date={task.createdAd}
-            onClick={() => {}}
+            removeTask={removeTask}
+            index={index}
           />
         ))}
       </TaskContainer>
